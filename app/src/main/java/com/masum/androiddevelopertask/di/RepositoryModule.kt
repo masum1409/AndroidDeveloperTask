@@ -1,6 +1,7 @@
 package com.masum.androiddevelopertask.di
 
 import com.masum.androiddevelopertask.data.repository.ShopRepositoryImpl
+import com.masum.androiddevelopertask.data.repository.datasource.LocalDataSource
 import com.masum.androiddevelopertask.data.repository.datasource.RemoteDataSource
 import com.masum.androiddevelopertask.domain.repository.ShopRepository
 import dagger.Module
@@ -15,6 +16,6 @@ class RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideShopRepository(remoteDataSource: RemoteDataSource): ShopRepository =
-        ShopRepositoryImpl(remoteDataSource)
+    fun provideShopRepository(remoteDataSource: RemoteDataSource,localDataSource: LocalDataSource): ShopRepository =
+        ShopRepositoryImpl(remoteDataSource,localDataSource)
 }

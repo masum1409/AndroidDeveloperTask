@@ -6,7 +6,7 @@ import com.masum.androiddevelopertask.data.repository.datasource.RemoteDataSourc
 import retrofit2.Response
 import javax.inject.Inject
 
-class ShopRemoteDataSourceImpl @Inject constructor(
+class RemoteDataSourceImpl @Inject constructor(
     private val api : FakeShopApiService
 ): RemoteDataSource {
     override suspend fun getAllProducts(): Response<Shop> =
