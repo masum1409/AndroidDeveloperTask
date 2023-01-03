@@ -28,19 +28,24 @@ class HomeViewModel @Inject constructor(
         getAllProducts()
     }
 
-      fun getAllLocalProducts() =viewModelScope.launch {
-        products.postValue(Resource.Loading(shopRepository.getAllLocalProducts()))
 
+    fun getFilteredProducts(query: String) = viewModelScope.launch {
+        shopRepository.getFilteredProducts(query).collectLatest {
+            products.postValue(Resource.Success(it))
+        }
     }
-
     fun addToCart(cartItem: CartItem)=viewModelScope.launch {
         shopRepository.addCart(cartItem)
+    }
+    private fun getAllLocalProducts() = viewModelScope.launch {
+        shopRepository.getAllLocalProducts().collectLatest {
+            products.postValue(Resource.Loading(it))
+        }
     }
      fun getAllProducts() =viewModelScope.launch {
         try {
             if(isNetworkAvailable(app)) {
                shopRepository.getAllProducts().collectLatest {
-
                    products.postValue(it)
                }
             } else {
@@ -51,4 +56,6 @@ class HomeViewModel @Inject constructor(
 
         }
     }
+
+
 }

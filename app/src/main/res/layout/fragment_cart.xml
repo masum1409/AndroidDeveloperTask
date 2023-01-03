@@ -47,8 +47,9 @@
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
 
-    <EditText
-        android:id="@+id/editTextTextPersonName2"
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search_view"
+        android:layoutDirection="rtl"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="16dp"
@@ -78,6 +79,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2"
+        app:layout_constraintTop_toBottomOf="@+id/search_view"
         tools:listitem="@layout/cart_list_item" />
 </androidx.constraintlayout.widget.ConstraintLayout>

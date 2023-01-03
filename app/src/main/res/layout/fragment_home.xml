@@ -30,11 +30,12 @@
             tools:layout_editor_absoluteY="16dp" />
     </androidx.appcompat.widget.Toolbar>
 
-    <EditText
-        android:id="@+id/editTextTextPersonName"
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search_view"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="16dp"
+        android:layoutDirection="rtl"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/rounded_edge_edit_text_background"
@@ -45,6 +46,7 @@
         android:inputType="text"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
+        android:queryHint="@string/search_hint"
         android:textColor="@color/oil"
         android:textColorHint="@color/grey"
         android:textSize="12sp"
@@ -60,7 +62,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName"
+        app:layout_constraintTop_toBottomOf="@+id/search_view"
         app:spanCount="2"
         tools:listitem="@layout/home_list_item" />
 

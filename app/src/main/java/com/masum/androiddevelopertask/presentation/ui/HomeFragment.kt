@@ -1,10 +1,12 @@
 package com.masum.androiddevelopertask.presentation.ui
 
+import android.app.ActionBar
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AbsListView
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -44,6 +46,18 @@ class HomeFragment : Fragment() {
         binding.cartIcon.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToCartFragment())
         }
+        binding.searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText != null) {
+                    viewModel.getFilteredProducts(newText)
+                }
+                return true
+            }
+        })
 
         viewModel.products.observe(viewLifecycleOwner){response ->
             when (response){

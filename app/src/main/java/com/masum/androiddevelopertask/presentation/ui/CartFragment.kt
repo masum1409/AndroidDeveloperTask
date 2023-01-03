@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.widget.SearchView
 import androidx.navigation.fragment.findNavController
 import com.masum.androiddevelopertask.R
 import com.masum.androiddevelopertask.databinding.FragmentCartBinding
@@ -49,9 +50,23 @@ class CartFragment : Fragment() {
             adapter.differ.submitList(it)
         }
         binding.cartRecyclerview.adapter=adapter
-        adapter.setOnItemClickListener { cartItem, position ->
+        adapter.setOnItemClickListener { cartItem, _ ->
             viewModel.addToCart(cartItem)
         }
+
+        binding.searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText != null) {
+                    viewModel.getFilteredCart(newText)
+                }
+                return true
+            }
+        })
+
 
 
 

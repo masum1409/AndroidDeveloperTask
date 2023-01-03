@@ -13,8 +13,18 @@ class LocalDataSourceImpl @Inject constructor(
     override suspend fun addProduct(products: List<ShopItem>) =
         shopDao.addProduct(products)
 
-    override suspend fun getAllProducts()=
+    override  fun getAllProducts()=
         shopDao.getProduct()
+
+
+    override fun getFilteredProducts(query: String): Flow<List<ShopItem>> {
+       return shopDao.getFilteredProduct(query)
+    }
+
+    override fun getFilteredCart(query: String): Flow<List<CartItem>> {
+       return shopDao.getFilteredCart(query)
+    }
+
     override suspend fun addToCart(cartItem: CartItem) {
         if(cartItem.quantity>0)
         shopDao.addToCart(cartItem)

@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.masum.androiddevelopertask.data.model.CartItem
+import com.masum.androiddevelopertask.data.util.Resource
 import com.masum.androiddevelopertask.domain.repository.ShopRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
@@ -21,7 +22,11 @@ class CartViewModel @Inject constructor(
     init {
         getCartProducts()
     }
-
+    fun getFilteredCart(query: String) = viewModelScope.launch {
+        shopRepository.getFilteredCart(query).collectLatest {
+            cartProducts.postValue(it)
+        }
+    }
 
     fun getCartProducts() {
         viewModelScope.launch {

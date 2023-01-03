@@ -15,7 +15,15 @@ interface ShopDao {
     suspend fun addProduct(product: List<ShopItem>)
 
     @Query("select * from shopItem")
-    suspend fun getProduct() : List<ShopItem>
+    fun getProduct() : Flow<List<ShopItem>>
+
+
+    @Query("select * from shopItem where title LIKE  '%' || :filter || '%'")
+     fun getFilteredProduct(filter : String) : Flow<List<ShopItem>>
+
+     @Query("select * from cart where title LIKE  '%' || :filter || '%'")
+     fun getFilteredCart(filter : String) : Flow<List<CartItem>>
+
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addToCart(cart: CartItem)
