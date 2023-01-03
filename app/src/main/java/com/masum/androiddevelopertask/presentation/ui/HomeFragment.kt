@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.AbsListView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.masum.androiddevelopertask.R
@@ -40,6 +41,9 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentHomeBinding.bind(view)
+        binding.cartIcon.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToCartFragment())
+        }
 
         viewModel.products.observe(viewLifecycleOwner){response ->
             when (response){
@@ -68,13 +72,15 @@ class HomeFragment : Fragment() {
         adapter.setOnItemClickListener { cartItem, position ->
             //remembering position for reset it on scroll
             previousPosition=position
+
+            viewModel.addToCart(cartItem)
         }
         binding.homeRecyclerview.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                adapter.notifyItemChanged(previousPosition)
 
-                //reseting position
+                //resetting position
                 previousPosition=-1
             }
 

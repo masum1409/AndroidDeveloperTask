@@ -1,8 +1,8 @@
 package com.masum.androiddevelopertask.di
 
 import android.app.Application
-import com.masum.androiddevelopertask.data.repository.datasource.LocalDataSource
-import com.masum.androiddevelopertask.domain.usecase.ProductUseCase
+import com.masum.androiddevelopertask.domain.repository.ShopRepository
+import com.masum.androiddevelopertask.presentation.viewmodel.CartViewModel
 import com.masum.androiddevelopertask.presentation.viewmodel.HomeViewModel
 import dagger.Module
 import dagger.Provides
@@ -15,6 +15,11 @@ import javax.inject.Singleton
 class ViewModelModule {
 @Singleton
 @Provides
-fun provideHomeViewModel(app: Application, productUseCase: ProductUseCase,localDataSource: LocalDataSource) =
-    HomeViewModel(app, productUseCase,localDataSource)
+fun provideHomeViewModel(app: Application, shopRepository: ShopRepository) =
+    HomeViewModel(app, shopRepository)
+
+@Singleton
+@Provides
+fun provideCartViewModel(app: Application, shopRepository: ShopRepository) =
+    CartViewModel(app, shopRepository)
 }

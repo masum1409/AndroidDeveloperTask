@@ -2,7 +2,82 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cart_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.ui.CartFragment"/>
+    android:background="@color/magnolia"
+    tools:context=".presentation.ui.CartFragment" >
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="16dp">
+
+            <ImageView
+                android:id="@+id/back_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:padding="12dp"
+                android:src="@drawable/back_icon" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:fontFamily="@font/balooda2_semibold"
+                android:padding="8dp"
+                android:text="আমার ব্যাগ"
+                android:textColor="#323232"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <EditText
+        android:id="@+id/editTextTextPersonName2"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/rounded_edge_edit_text_background"
+        android:drawableEnd="@drawable/file"
+        android:ems="10"
+        android:fontFamily="@font/boloda_2_regular"
+        android:hint="@string/search_hint"
+        android:inputType="text"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:textColor="@color/oil"
+        android:textColorHint="@color/grey"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/cart_recyclerview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="26dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2"
+        tools:listitem="@layout/cart_list_item" />
+</androidx.constraintlayout.widget.ConstraintLayout>

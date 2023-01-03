@@ -67,6 +67,9 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
 
             binding.minusButton.setOnClickListener {
                 if(total_order>0)total_order--
+                onItemClickListener?.let { it1 -> it1(CartItem(shopItem.id, shopItem.image,shopItem.title,total_order,shopItem.price,),position) }
+
+
                 binding.totalItem.text = "$total_order পিস"
                 if(total_order == 0){
                     binding.countView.visibility= View.INVISIBLE

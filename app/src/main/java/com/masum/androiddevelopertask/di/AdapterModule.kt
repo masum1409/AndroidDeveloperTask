@@ -1,5 +1,6 @@
 package com.masum.androiddevelopertask.di
 
+import com.masum.androiddevelopertask.presentation.adapter.CartAdapter
 import com.masum.androiddevelopertask.presentation.adapter.HomeAdapter
 import dagger.Module
 import dagger.Provides
@@ -14,4 +15,8 @@ class AdapterModule {
     @Singleton
     @Provides
     fun provideHomeAdapter() =HomeAdapter()
+
+    @Singleton
+    @Provides
+    fun provideCartAdapter() =CartAdapter()
 }

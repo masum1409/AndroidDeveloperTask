@@ -4,34 +4,45 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.masum.androiddevelopertask.data.model.CartItem
 import com.masum.androiddevelopertask.data.model.Shop
 import com.masum.androiddevelopertask.data.model.ShopItem
 import com.masum.androiddevelopertask.data.repository.datasource.LocalDataSource
 import com.masum.androiddevelopertask.data.util.Network.isNetworkAvailable
 import com.masum.androiddevelopertask.data.util.Resource
-import com.masum.androiddevelopertask.domain.usecase.ProductUseCase
+import com.masum.androiddevelopertask.domain.repository.ShopRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val app : Application,
-    private  val productUseCase: ProductUseCase,
-    private val localDataSource: LocalDataSource
+    private  val shopRepository: ShopRepository
 ) : AndroidViewModel(app){
     val products : MutableLiveData<Resource<List<ShopItem>>> = MutableLiveData()
 
     init {
+        getAllLocalProducts()
         getAllProducts()
     }
 
+      fun getAllLocalProducts() =viewModelScope.launch {
+        products.postValue(Resource.Loading(shopRepository.getAllLocalProducts()))
+
+    }
+
+    fun addToCart(cartItem: CartItem)=viewModelScope.launch {
+        shopRepository.addCart(cartItem)
+    }
      fun getAllProducts() =viewModelScope.launch {
-        products.postValue(Resource.Loading(localDataSource.getAllProducts()))
         try {
             if(isNetworkAvailable(app)) {
-                val result =productUseCase.getAllProducts()
-                products.postValue(result)
+               shopRepository.getAllProducts().collectLatest {
+
+                   products.postValue(it)
+               }
             } else {
                 products.postValue(Resource.Error(message = "Internet not available"))
             }
